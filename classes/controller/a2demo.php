@@ -54,14 +54,17 @@ class Controller_A2demo extends Controller {
 	{
 		if($this->user) //cannot create new accounts when a user is logged in
 			$this->action_index();
-		
-		// Create a new user
-		$user = ORM::factory('user');
 
 		$post = $_POST;
 
-		if ($user->validate($post,TRUE,$errors))
+		// Create a new user
+		$user = ORM::factory('user')
+			->values($post);
+
+		if ($user->check())
 		{
+			$user->save();
+
 			// user  created, show login form
 			$this->action_login();
 		}
@@ -69,7 +72,6 @@ class Controller_A2demo extends Controller {
 		{
 			//show form
 			echo form::open();
-			echo Kohana::debug($errors);
 			echo 'username:' . form::input('username') . '<br>';
 			echo 'password:' . form::password('password') . '<br>';
 			echo 'password confirm:' . form::password('password_confirm') . '<br>';
@@ -78,7 +80,7 @@ class Controller_A2demo extends Controller {
 			echo form::close();
 		}
 
-		echo Kohana::debug($post->as_array(),$user->as_array());
+		echo Kohana::debug($post,$user->as_array());
 	}
 
 	public function action_login()
@@ -92,7 +94,7 @@ class Controller_A2demo extends Controller {
 			->rule('username', 'length', array(4,127))
 			->rule('password', 'required');
 
-		if($post->check($errors))
+		if($post->check())
 		{
 			if($this->a1->login($post['username'],$post['password'], isset($_POST['remember']) ? (bool) $_POST['remember'] : FALSE))
 			{
@@ -146,11 +148,16 @@ class Controller_A2demo extends Controller {
 	
 	private function editor($blog)
 	{
-		if($blog->validate($_POST,FALSE,$errors))
+		if(count($_POST))
 		{
-			$blog->user_id = $this->a2->get_user()->id;
-			$blog->save();
-			return $this->action_index();
+			$blog->values($_POST);
+
+			if($blog->check())
+			{
+				$blog->user_id = $this->a2->get_user()->id;
+				$blog->save();
+				return $this->action_index();
+			}
 		}
 
 		//show form

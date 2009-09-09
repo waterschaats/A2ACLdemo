@@ -7,13 +7,15 @@ class Model_Blog extends ORM implements Acl_Resource_Interface {
 		return 'blog';
 	}
 
-	public function validate(array & $array, $save = FALSE, & $errors)
-	{
-		$array = Validate::factory($array)
-			->filter(TRUE,'trim')
-			->rule('text','required');
-
-		return parent::validate($array, $save, $errors);
-	}
-
+	protected $_filters = array(
+		TRUE => array(
+			'trim' => NULL
+		)
+	);
+	
+	protected $_rules = array(
+		'text' => array(
+			'not_empty' => NULL
+		)
+	);
 } // End Blog Model

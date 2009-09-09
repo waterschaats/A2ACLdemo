@@ -61,7 +61,7 @@ return array(
 			array('user','blog','add'),
 
 				// users can edit their own blogs (and only their own blogs)
-			array('user','blog','edit',array('Acl_Assert_Argument',array('primary_key_value'=>'user_id'))),
+			array('user','blog','edit',array('Acl_Assert_Argument',array('id'=>'user_id'))),
 
 				// administrators can delete everything 
 			array('admin','blog','delete'),
