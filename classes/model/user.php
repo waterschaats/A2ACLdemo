@@ -63,14 +63,4 @@ class Model_User extends Model_A1_ORM_User implements Acl_Role_Interface {
 			$array->errors($field,'username_available');
 		}
 	}
-
-	public function save()
-	{
-		if(array_key_exists( $this->_columns['password'] ,$this->_changed))
-		{
-			$this->_object[ $this->_columns['password'] ] = A1::instance($this->_config)->hash_password($this->_object[ $this->_columns['password'] ]);
-		}
-
-		return parent::save();
-	}
 } // End User Model
