@@ -54,17 +54,34 @@ return array(
 	(
 		'allow' => array
 		(
-				// guest can read blog
-			array('guest','blog','read'),
+			// guest can read blog
+			'guest1' => array(
+				'role'      => 'guest',
+				'resource'  => 'blog',
+				'privilege' => 'read'
+			),
 
-				// users can add blogs
-			array('user','blog','add'),
+			// users can add blogs
+			'user1' => array(
+				'role'      => 'user',
+				'resource'  => 'blog',
+				'privilege' => 'add'
+			),
 
-				// users can edit their own blogs (and only their own blogs)
-			array('user','blog','edit',array('Acl_Assert_Argument',array('id'=>'user_id'))),
+			// users can edit & delete their own blogs (and only their own blogs)
+			'user2' => array(
+				'role'      => 'user',
+				'resource'  => 'blog',
+				'privilege' => array('edit','delete'),
+				'assertion' => array('Acl_Assert_Argument',array('id'=>'user_id'))
+			),
 
-				// administrators can delete everything 
-			array('admin','blog','delete'),
+			// administrators can delete everything 
+			'admin1' => array(
+				'role'      => 'admin',
+				'resource'  => 'blog',
+				'privilege' => 'delete'
+			),
 		),
 		'deny' => array
 		(
