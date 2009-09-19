@@ -30,7 +30,7 @@ class Model_User extends Model_A1_ORM_User implements Acl_Role_Interface {
 	);
 
 	protected $_callbacks = array(
-		'password' => array('username_available')
+		'username' => array('username_available')
 	);
 
 	// Columns to ignore
@@ -60,7 +60,7 @@ class Model_User extends Model_A1_ORM_User implements Acl_Role_Interface {
 
 		if( ORM::factory($this->_user_model)->where($field,'=',$array[$field])->find_all(1)->count() )
 		{
-			$array->errors($field,'username_available');
+			$array->error($field,'username_available');
 		}
 	}
 } // End User Model
