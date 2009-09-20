@@ -90,8 +90,9 @@ class Controller_A2demo extends Controller {
 
 		$post = Validate::factory($_POST)
 			->filter(TRUE,'trim')
-			->rule('username', 'required')
-			->rule('username', 'length', array(4,127))
+			->rule('username', 'not_empty')
+			->rule('username', 'min_length', array(4))
+			->rule('username', 'max_length', array(127))
 			->rule('password', 'required');
 
 		if($post->check())
@@ -104,7 +105,7 @@ class Controller_A2demo extends Controller {
 
 		//show form
 		echo form::open();
-		echo Kohana::debug($errors);
+		echo Kohana::debug($post->errors());
 		echo 'username:' . form::input('username') . '<br>';
 		echo 'password:' . form::password('password') . '<br>';
 		echo 'remember me:' . form::checkbox('remember',TRUE) . '<br>';
