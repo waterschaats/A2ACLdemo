@@ -18,7 +18,7 @@ class Controller_AclDemo extends Controller {
 
 		echo '<b>See source for usage, use links to verify output</b><br>';
 
-		for($i = 1; $i < 12; $i++)
+		for($i = 1; $i < 13; $i++)
 		{
 			echo html::anchor('acldemo/demo'.$i,'demo ' . $i),'<br>';
 		}

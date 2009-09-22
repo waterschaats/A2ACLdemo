@@ -93,7 +93,7 @@ class Controller_A2demo extends Controller {
 			->rule('username', 'not_empty')
 			->rule('username', 'min_length', array(4))
 			->rule('username', 'max_length', array(127))
-			->rule('password', 'required');
+			->rule('password', 'not_empty');
 
 		if($post->check())
 		{
