@@ -78,9 +78,8 @@ class Controller_A2demo extends Controller {
 			echo 'role:' . form::select('role',array('user'=>'user','admin'=>'admin')) . '<br>';
 			echo form::submit('create','create');
 			echo form::close();
+			echo Kohana::debug($user->validate()->errors());
 		}
-
-		echo Kohana::debug($post,$user->as_array());
 	}
 
 	public function action_login()
@@ -105,12 +104,12 @@ class Controller_A2demo extends Controller {
 
 		//show form
 		echo form::open();
-		echo Kohana::debug($post->errors());
 		echo 'username:' . form::input('username') . '<br>';
 		echo 'password:' . form::password('password') . '<br>';
 		echo 'remember me:' . form::checkbox('remember',TRUE) . '<br>';
 		echo form::submit('login','login');
 		echo form::close();
+		echo Kohana::debug($post->errors());
 	}
 
 	public function action_logout()
@@ -166,6 +165,7 @@ class Controller_A2demo extends Controller {
 		echo 'text:' . form::textarea('text',$blog->text) . '<br>';
 		echo form::submit('post','post');
 		echo form::close();
+		echo Kohana::debug($blog->validate()->errors());
 	}
 
 	public function action_delete($blog_id)
