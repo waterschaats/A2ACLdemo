@@ -1,6 +1,6 @@
 <?php
 
-class Model_User extends Model_A1_ORM_User implements Acl_Role_Interface {
+class Model_User extends Model_A1_User_ORM implements Acl_Role_Interface {
 
 	// default filters
 	protected $_filters = array(

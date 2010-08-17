@@ -14,6 +14,7 @@ class Controller_A2demo extends Controller {
 
 	public function action_index()
 	{
+
 		$blogs = ORM::factory('blog')->find_all();
 
 		// show user info
